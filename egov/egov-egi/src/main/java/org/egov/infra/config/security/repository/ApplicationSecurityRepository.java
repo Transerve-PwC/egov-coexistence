@@ -74,8 +74,15 @@ public class ApplicationSecurityRepository implements SecurityContextRepository 
 				else*/{
 //				    ApplicationThreadLocals.clearValues();
 				 cur_user = new CurrentUser(this.getUserDetails(request));
+				 LOGGER.info("new current user="+cur_user+", saving to redis now");
 				this.microserviceUtils.savetoRedis(session.getId(), "current_user", cur_user);
 				}
+				LOGGER.info(" ***  Session saved  to redis.... ," + session.getId()+", setting authentication in context now");
+				
+				context.setAuthentication(this.prepareAuthenticationObj(request, cur_user));
+				LOGGER.info("successfully set context authentication");
+				return context;
+				
 
 			}{
 			    String oldToken = (String)session.getAttribute(MS_USER_TOKEN);
