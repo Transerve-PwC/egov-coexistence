@@ -82,10 +82,21 @@ public class VouchernumberGeneratorImpl implements VouchernumberGenerator {
         if (fiscalPeriod == null)
             throw new ApplicationRuntimeException("Fiscal period is not defined for the voucher date");
         sequenceName = "sq_" + vh.getFundId().getIdentifier() + "_" + vh.getVoucherNumberPrefix() + "_" + fiscalPeriod.getName();
+        sequenceName = sequenceName.toLowerCase();
+        System.out.println("************ digit_debug ***** sequence need to be created for " + sequenceName);
         final Serializable nextSequence = genericSequenceNumberGenerator.getNextSequence(sequenceName);
+        String financialYearRange = fiscalPeriod.getcFinancialYear() != null ? fiscalPeriod.getcFinancialYear().getFinYearRange() : fiscalPeriod.getName();
+        if (financialYearRange == null) {
+            financialYearRange = fiscalPeriod.getName();
+        }
+        System.out.println("************ digit_debug ***** got next sequence  " + nextSequence);
 
+        System.out.println("************ digit_debug ***** got getFundId().getIdentifier()  " + vh.getFundId().getIdentifier());
+        System.out.println("************ digit_debug ***** got vh.getVoucherNumberPrefix()  " + vh.getVoucherNumberPrefix());
+        System.out.println("************ digit_debug ***** got vh.getVoucherDate().getMonth()  " + vh.getVoucherDate().getMonth());
+        System.out.println("************ digit_debug ***** got fiscalPeriod.getcFinancialYear().getFinYearRange()  " + financialYearRange);
         voucherNumber = String.format("%s/%s/%08d/%02d/%s", vh.getFundId().getIdentifier(), vh.getVoucherNumberPrefix(),
-                nextSequence, vh.getVoucherDate().getMonth() + 1, fiscalPeriod.getcFinancialYear().getFinYearRange());
+                nextSequence, vh.getVoucherDate().getMonth() + 1, financialYearRange);
 
         return voucherNumber;
     }

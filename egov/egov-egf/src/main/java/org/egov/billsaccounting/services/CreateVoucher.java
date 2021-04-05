@@ -1125,7 +1125,10 @@ public class CreateVoucher {
 			validateVoucherMIS(headerdetails);
 			validateTransaction(accountcodedetails, subledgerdetails);
 			validateFunction(headerdetails, accountcodedetails);
+			System.out.println(" ************ digit_debug ***** Inside CreateVoucher got headerDetails as" + headerdetails);
 			vh = createVoucherHeader(headerdetails);
+			System.out.println(" ************ digit_debug *****  Got out of create Voucher header with object: ");
+			System.out.println(vh);
 			mis = createVouchermis(headerdetails);
 			mis.setVoucherheaderid(vh);
 			vh.setVouchermis(mis);
@@ -1555,6 +1558,9 @@ public class CreateVoucher {
 	@SuppressWarnings("deprecation")
 	public CVoucherHeader createVoucherHeader(final HashMap<String, Object> headerdetails)
 			throws ApplicationRuntimeException, Exception {
+			System.out.println("************ digit_debug ***** In createVoucherHeader ******");
+			System.out.println(" ************ digit_debug ***** Header Details got as: ");
+			System.out.println(headerdetails);
 		if (LOGGER.isDebugEnabled())
 			LOGGER.debug("START | createVoucherHeader");
 		// Connection con = null;
@@ -1573,14 +1579,15 @@ public class CreateVoucher {
 			else
 				vNumGenMode = voucherTypeForULB.readVoucherTypes(voucherType);
 			// --END --
+			System.out.println("************ digit_debug ***** Got vNumGenMode as" + vNumGenMode);
 			voucherType = voucherType.toUpperCase().replaceAll(" ", "");
-
+			System.out.println("************ digit_debug ***** Got VoucherType is" + voucherType);
 			String voucherSubType = null;
 			if (headerdetails.get(VoucherConstant.VOUCHERSUBTYPE) != null) {
 				voucherSubType = (String) headerdetails.get(VoucherConstant.VOUCHERSUBTYPE);
 				voucherSubType = voucherSubType.toUpperCase().replaceAll(" ", "");
 			}
-
+			System.out.println("************ digit_debug ***** Got VoucherSubType as" + voucherSubType);
 			// why it is type,subtype where api expects subtype,type ?
 			// if()
 			final String voucherNumberPrefix = getVoucherNumberPrefix(voucherType, voucherSubType);
@@ -1590,7 +1597,7 @@ public class CreateVoucher {
 			final Date voucherDate = (Date) headerdetails.get(VoucherConstant.VOUCHERDATE);
 			cVoucherHeader.setVoucherDate(voucherDate);
 			Fund fundByCode = fundDAO.fundByCode(headerdetails.get(VoucherConstant.FUNDCODE).toString());
-
+			System.out.println("************ digit_debug ***** Got fundBycode is" + fundByCode);
 			if (LOGGER.isDebugEnabled())
 				LOGGER.debug("Voucher Type is :" + voucherType);
 			if (LOGGER.isDebugEnabled())
@@ -1604,10 +1611,11 @@ public class CreateVoucher {
 			cVoucherHeader.setFundId(fundByCode);
 			if (vNumGenMode.equals("Auto")) {
 				cVoucherHeader.setVoucherNumberPrefix(voucherNumberPrefix);
+				System.out.println("************ digit_debug ***** Before VocherNumber creation: " + voucherNumberPrefix);
+				System.out.println(cVoucherHeader);
 				VouchernumberGenerator v = beanResolver.getAutoNumberServiceFor(VouchernumberGenerator.class);
-
 				final String strVoucherNumber = v.getNextNumber(cVoucherHeader);
-
+				System.out.println("************ digit_debug ***** After VocherNumber creation, value: " + strVoucherNumber);
 				cVoucherHeader.setVoucherNumber(strVoucherNumber);
 			}
 			/*
@@ -1651,12 +1659,16 @@ public class CreateVoucher {
 				 */
 			}
 
-			if (headerdetails.containsKey(VoucherConstant.STATUS) && null != headerdetails.get(VoucherConstant.STATUS))
+			if (headerdetails.containsKey(VoucherConstant.STATUS) && null != headerdetails.get(VoucherConstant.STATUS)) {
 				cVoucherHeader.setStatus(Integer.valueOf(headerdetails.get(VoucherConstant.STATUS).toString()));
-			else {
+				System.out.println("************ digit_debug ***** status set: " + cVoucherHeader);
+			} else {
 				final List list = appConfigValuesService.getConfigValuesByModuleAndKey("EGF",
 						"DEFAULTVOUCHERCREATIONSTATUS");
+				System.out.println("************ digit_debug ***** in else block Default voucher creation status, list val: ");
+				 System.out.println(list);
 				cVoucherHeader.setStatus(Integer.parseInt(((AppConfigValues) list.get(0)).getValue()));
+				System.out.println("************ digit_debug ***** status set: " + cVoucherHeader);
 			}
 
 			if (null != headerdetails.get(VoucherConstant.ORIGIONALVOUCHER)) {
@@ -1665,16 +1677,23 @@ public class CreateVoucher {
 						.parseLong(headerdetails.get(VoucherConstant.ORIGIONALVOUCHER).toString());
 				query = persistenceService.getSession().createQuery("from CVoucherHeader where id=:id");
 				query.setLong("id", origionalVId);
-				if (query.list().size() == 0)
+				if (query.list().size() == 0) {
+					System.out.println("************ digit_debug Not a valid original voucherheader id ");
 					throw new ApplicationRuntimeException("Not a valid origional voucherheader id");
-				else
+				}
+				else {
 					cVoucherHeader.setOriginalvcId(origionalVId);
+					System.out.println("************ digit_debug ***** OriginalVCId set: " + cVoucherHeader);
+				}
+					
 			}
 
 			cVoucherHeader.setRefvhId((Long) headerdetails.get(VoucherConstant.REFVOUCHER));
+			System.out.println("************ digit_debug ***** RefvhId set: " + cVoucherHeader);
 			cVoucherHeader.setEffectiveDate(new Date());
 			Object billNumber = headerdetails.get(VoucherConstant.BILLNUMBER);
-                        cVoucherHeader.setBillNumber(billNumber != null ? billNumber.toString() : "");
+            cVoucherHeader.setBillNumber(billNumber != null ? billNumber.toString() : "");
+			System.out.println("************ digit_debug ***** billNumber set: " + cVoucherHeader);
 			if (LOGGER.isDebugEnabled())
 				LOGGER.debug(
 						"Printing Voucher Details------------------------------------------------------------------------------");
@@ -2768,6 +2787,8 @@ public class CreateVoucher {
 					fyStartDate = element[0].toString();
 					fyEndDate = element[1].toString();
 				}
+			System.out.println(" ************ digit_debug ***** fyStartDate: " + fyStartDate);
+			System.out.println(" ************ digit_debug ***** fyEndDate: " + fyEndDate);
 			final String query2 = "SELECT id FROM voucherHeader WHERE voucherNumber = '" + vcNum
 					+ "' AND voucherDate>='" + fyStartDate + "' AND voucherDate<='" + fyEndDate + "' and status!=4";
 			pst = persistenceService.getSession().createSQLQuery(query2);
