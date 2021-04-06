@@ -176,7 +176,7 @@ public class RemittanceServiceImpl extends RemittanceService {
 
         if (!cashInHand.list().isEmpty())
             cashInHandGLCode = cashInHand.list().get(0).toString();
-
+        System.out.println("****** EY_DEBUG ********** CashInHandGLCode: " +  cashInHandGLCode);
         String createVoucher = "N";
 
         String functionCode = collectionsUtil.getAppConfigValue(CollectionConstants.MODULE_NAME_COLLECTIONS_CONFIG,
@@ -184,7 +184,7 @@ public class RemittanceServiceImpl extends RemittanceService {
      // TODO : need to make this call to mdms
 //        FinancialStatus instrumentStatusNew = microserviceUtils
 //                .getInstrumentStatusByCode(CollectionConstants.INSTRUMENT_NEW_STATUS);
-
+        System.out.println("****** EY_DEBUG ********** functionCode: " +  functionCode);
         Boolean showRemitDate = false;
         BigDecimal totalCashAmt = BigDecimal.ZERO;
         BigDecimal totalCashVoucherAmt = BigDecimal.ZERO;
@@ -199,6 +199,7 @@ public class RemittanceServiceImpl extends RemittanceService {
         final Bankaccount depositedBankAccount = (Bankaccount) persistenceService.find("from Bankaccount where accountnumber=?",
                 accountNumberId);
         final String serviceGlCode = depositedBankAccount.getChartofaccounts().getGlcode();
+        System.out.println("****** EY_DEBUG ********** depositedBankAccount serviceGlCode: " +  serviceGlCode);
         List<Receipt> receipts;
         Set<Instrument> instruments;
         Map<String, Receipt> receiptMap = new HashMap<>();
@@ -222,11 +223,13 @@ public class RemittanceServiceImpl extends RemittanceService {
                     try {
                         voucherDate = collectionsUtil.getRemittanceVoucherDate(dateFomatter.parse(receipt.getReceiptDate()));
                     } catch (final ParseException e) {
+                        System.out.println("****** EY_DEBUG ********** Error Parsing Date : " +  e.toString());
                         LOGGER.error("Error Parsing Date", e);
                     }
                 if (receipt.getService() != null && receipt.getService().length() > 0) {
                     businessDetails = businessDetailsMap.get(receipt.getService());
                     // If Cash Amount is present
+                    System.out.println("****** EY_DEBUG ********** Receipt Instrument Amount: " +  receipt.getInstrumentAmount());
                     if (receipt.getInstrumentAmount() != null && cashInHandGLCode != null) {
                         switch (ApplicationThreadLocals.getCollectionVersion().toUpperCase()) {
                         case "V2":
@@ -241,6 +244,7 @@ public class RemittanceServiceImpl extends RemittanceService {
                                     receiptIds.add(r.getPaymentId());
                                 }
                             }
+                            System.out.println("****** EY_DEBUG ********** Switch block VERSION case, ReceiptMap: " +  receiptMap.toString());
                             break;
 
                         default:
@@ -253,6 +257,7 @@ public class RemittanceServiceImpl extends RemittanceService {
                                     receiptIds.add(r.getBill().get(0).getBillDetails().get(0).getId());
                                 }
                             }
+                            System.out.println("****** EY_DEBUG ********** Switch block default case, ReceiptMap: " +  receiptMap.toString());
                             break;
                         }
                         if (receipts != null && !receipts.isEmpty()) {
@@ -261,9 +266,13 @@ public class RemittanceServiceImpl extends RemittanceService {
                                 StringUtils.join(receiptIds, ","));
 
                         totalCashAmt = totalCashAmt.add(receipt.getInstrumentAmount());
+                        System.out.println("****** EY_DEBUG ********** totalCashAmt: " +  totalCashAmt);
                         if (businessDetails.isVoucherCreationEnabled()) {
                             createVoucher = "Y";
                             totalCashVoucherAmt = totalCashVoucherAmt.add(receipt.getInstrumentAmount());
+                            
+                            System.out.println("****** EY_DEBUG ********** totalCashVoucherAmt: " +  totalCashVoucherAmt);
+
                         } else {
                             instrumentResponse = microserviceUtils.reconcileInstruments(instrumentsList,
                                     accountNumberId, depositedBankAccount.getBankbranch().getBank().getId().toString());
@@ -1077,6 +1086,13 @@ public class RemittanceServiceImpl extends RemittanceService {
         final String sqlQuery = "from CVoucherHeader vh where voucherNumber=:voucherNumber";
         final Query query = persistenceService.getSession().createQuery(sqlQuery);
         query.setParameter("voucherNumber", voucherHeaderId);
+        System.out.println("****** EY_DEBUG ********** getVoucher query: " +  query.getQueryString());
+        List<CVoucherHeader> voucherHeaderList = query.list();
+        if(voucherHeaderList == null || voucherHeaderList.isEmpty()) {
+            System.out.println("****** EY_DEBUG ********** Empty Voucher headerlist found");
+        } else {
+            System.out.println("****** EY_DEBUG ********** VoucherHeaderList Count: " + voucherHeaderList.size() + voucherHeaderList.toString());
+        }
         return query.list();
     }
 
