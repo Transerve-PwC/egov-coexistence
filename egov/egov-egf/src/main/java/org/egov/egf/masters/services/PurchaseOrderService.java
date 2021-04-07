@@ -122,6 +122,7 @@ public class PurchaseOrderService implements EntityTypeService {
     }
 
     public PurchaseOrder getByOrderNumber(final String orderNumber) {
+    	System.out.println("inside method getByOrderNumber, orderNumber="+orderNumber);
         return purchaseOrderRepository.findByOrderNumber(orderNumber);
     }
 

@@ -237,6 +237,7 @@ public class CreateSupplierBillController extends BaseBillController {
             egBillregister.getBillPayeedetails().clear();
             prepareBillDetailsForView(egBillregister);
             prepareValidActionListByCutOffDate(model);
+            System.out.println("inside method create, orderNumber="+egBillregister.getWorkordernumber());
             model.addAttribute(SUPPLIER_ID,
                     purchaseOrderService.getByOrderNumber(egBillregister.getWorkordernumber()).getSupplier().getId());
             return SUPPLIERBILL_FORM;
