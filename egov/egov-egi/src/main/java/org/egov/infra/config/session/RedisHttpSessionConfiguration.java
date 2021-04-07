@@ -68,6 +68,7 @@ public class RedisHttpSessionConfiguration {
     @Bean
     public CookieSerializer cookieSerializer() {
         DefaultCookieSerializer serializer = new DefaultCookieSerializer();
+        serializer.setCookieMaxAge(172800);//setting to 2 days for poc demo
         serializer.setCookieName(SESSION_COOKIE_NAME);
         serializer.setCookiePath(SESSION_COOKIE_PATH);
         return serializer;
