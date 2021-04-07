@@ -1387,6 +1387,7 @@ public class CommonAction extends BaseFormAction {
             final WebApplicationContext wac = WebApplicationContextUtils.getWebApplicationContext(ServletActionContext
                     .getServletContext());
             final EntityTypeService entityService = (EntityTypeService) wac.getBean(simpleName);
+			System.out.println("inside method ajaxLoadEntitesBy20, filterkey startwith=" + startsWith);
             entitiesList = (List<EntityType>) entityService.filterActiveEntities(startsWith, 20, detailType.getId());
         }
         if (LOGGER.isDebugEnabled())
