@@ -221,6 +221,7 @@ public class AjaxReceiptCreateAction extends BaseFormAction {
         final WebApplicationContext wac = WebApplicationContextUtils
                 .getWebApplicationContext(ServletActionContext.getServletContext());
         final EntityTypeService entityService = (EntityTypeService) wac.getBean(simpleName);
+		System.out.println("inside method ajaxValidateDetailCodeNew, filterKey code=" + code);
         entityList = (List<EntityType>) entityService.filterActiveEntities(code, 10, adt.getId());
 
         if (entityList == null || entityList.isEmpty())
@@ -276,6 +277,7 @@ public class AjaxReceiptCreateAction extends BaseFormAction {
         final WebApplicationContext wac = WebApplicationContextUtils
                 .getWebApplicationContext(ServletActionContext.getServletContext());
         final EntityTypeService entityService = (EntityTypeService) wac.getBean(simpleName);
+        System.out.println("inside method getCodeNew, filterKey="+filterKey);
         final List<EntityType> tempEntityList = (List<EntityType>) entityService.filterActiveEntities(filterKey, -1,
                 adt.getId());
         entityList = new ArrayList<EntityType>();

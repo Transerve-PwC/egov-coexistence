@@ -233,6 +233,7 @@ public class AjaxCommonController {
             simpleName = simpleName.substring(0, 1).toLowerCase() + simpleName.substring(1) + "Service";
 
             final EntityTypeService entityService = (EntityTypeService) applicationContext.getBean(simpleName);
+            System.out.println("inside method findEntitesByAccountDetailType, filterkey name="+name);
             entitiesList = (List<EntityType>) entityService.filterActiveEntities(name, 20, detailType.getId());
         } catch (final Exception e) {
             e.printStackTrace();
