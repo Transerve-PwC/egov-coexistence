@@ -170,6 +170,7 @@ public class AjaxCommonController {
     @ResponseBody
     public List<PurchaseOrder> getAllPurchaseOrderByOrderNumber(@RequestParam("orderNumber") final String orderNumber)
             throws ApplicationException {
+    	System.out.println("inside method getAllPurchaseOrderByOrderNumber, orderNumber="+orderNumber);
         PurchaseOrder po = purchaseOrderService.getByOrderNumber(orderNumber);
         Department dept = microserviceUtils.getDepartmentByCode(po.getDepartment());
         po.setDescription(dept.getName());
