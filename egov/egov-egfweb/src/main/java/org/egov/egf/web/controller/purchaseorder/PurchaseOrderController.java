@@ -125,6 +125,8 @@ public class PurchaseOrderController {
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String create(@Valid @ModelAttribute final PurchaseOrder purchaseOrder, final BindingResult errors,
             final Model model, final RedirectAttributes redirectAttrs) throws IOException {
+    	
+    	System.out.println("*************  TESTING CHANGES REFLECTED  *********************");
 
         if (errors.hasErrors()) {
             prepareNewForm(model);
