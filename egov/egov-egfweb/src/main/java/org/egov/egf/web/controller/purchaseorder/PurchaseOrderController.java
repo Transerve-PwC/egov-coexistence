@@ -189,6 +189,8 @@ public class PurchaseOrderController {
     @ResponseBody
     public String ajaxsearch(@PathVariable("mode") final String mode, final Model model,
             @ModelAttribute final PurchaseOrder purchaseOrder) {
+		System.out.println(
+				"inside method ajaxsearch with mode=" + mode + ", purchase order details are: " + purchaseOrder);
         final List<PurchaseOrder> searchResultList = purchaseOrderService.search(purchaseOrder);
         return new StringBuilder("{ \"data\":").append(toSearchResultJson(searchResultList)).append("}").toString();
     }
