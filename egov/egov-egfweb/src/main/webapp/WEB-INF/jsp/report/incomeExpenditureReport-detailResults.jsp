@@ -58,7 +58,7 @@
 					<table border="0" cellspacing="0" cellpadding="0"
 						class="tablebottom" width="100%">
 						<tr>
-							<th class="bluebgheadtd" width="100%" colspan="12"><strong
+							<th class="bluebgheadtd orange-background-white" width="100%" colspan="12"><strong
 								style="font-size: 15px;"> <s:text
 										name="report.ie.schedule.heading" /> <s:property
 										value="model.financialYear.finYearRange" /></strong></th>
@@ -76,15 +76,15 @@
 							</td>
 						</tr>
 						<tr>
-							<th class="bluebgheadtd"><s:text name="report.accountCode" /></th>
-							<th class="bluebgheadtd"><s:text name="report.headOfAccount" /></th>
+							<th class="bluebgheadtd orange-background-white"><s:text name="report.accountCode" /></th>
+							<th class="bluebgheadtd orange-background-white"><s:text name="report.headOfAccount" /></th>
 							<s:iterator value="incomeExpenditureStatement.funds"
 								status="stat">
-								<th class="bluebgheadtd"><s:property value="name" /></th>
+								<th class="bluebgheadtd orange-background-white"><s:property value="name" /></th>
 							</s:iterator>
-							<th class="bluebgheadtd"><s:text name="report.currentTotals" />:
+							<th class="bluebgheadtd orange-background-white"><s:text name="report.currentTotals" />:
 								<s:property value="currentYearToDate" /></th>
-							<th class="bluebgheadtd"><s:text
+							<th class="bluebgheadtd orange-background-white"><s:text
 									name="report.previousTotals" />: <s:property
 									value="previousYearToDate" /></th>
 						</tr>

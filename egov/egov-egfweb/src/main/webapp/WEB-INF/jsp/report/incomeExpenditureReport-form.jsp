@@ -58,7 +58,7 @@
 				<table border="0" cellspacing="0" cellpadding="0"
 					class="tablebottom" width="100%">
 					<tr>
-						<td class="bluebgheadtd" width="100%"  colspan="12">
+						<td class="bluebgheadtd orange-background-white" width="100%"  colspan="12">
 							<s:property value="scheduleheading" /> </strong>
 						</td>
 					</tr>
@@ -76,22 +76,22 @@
 					</tr>
 
 					<tr>
-						<th class="bluebgheadtd"><s:text name="report.accountCode" /></th>
-						<th class="bluebgheadtd" width="20%"><s:text
+						<th class="bluebgheadtd orange-background-white"><s:text name="report.accountCode" /></th>
+						<th class="bluebgheadtd orange-background-white" width="20%"><s:text
 								name="report.headOfAccount" /></th>
 						<s:iterator value="incomeExpenditureStatement.funds" status="stat">
-							<th class="bluebgheadtd" colspan="2"><s:property
+							<th class="bluebgheadtd orange-background-white" colspan="2"><s:property
 									value="name" />(Rs)</th>
 						</s:iterator>
 					</tr>
 					<tr>
-						<th class="bluebgheadtd"><s:text name="" /></th>
-						<th class="bluebgheadtd"><s:text name="" /></th>
+						<th class="bluebgheadtd orange-background-white"><s:text name="" /></th>
+						<th class="bluebgheadtd orange-background-white"><s:text name="" /></th>
 						<s:iterator value="incomeExpenditureStatement.funds" status="stat">
-							<th class="bluebgheadtd" width="15%" align="center" colspan="1"><s:text
+							<th class="bluebgheadtd orange-background-white" width="15%" align="center" colspan="1"><s:text
 									name="report.currentTotals" /> <s:property
 									value="currentYearToDate" /></th>
-							<th class="bluebgheadtd" width="15%" align="center" colspan="1"><s:text
+							<th class="bluebgheadtd orange-background-white" width="15%" align="center" colspan="1"><s:text
 									name="report.previousTotals" /> <s:property
 									value="previousYearToDate" /></th>
 						</s:iterator>
