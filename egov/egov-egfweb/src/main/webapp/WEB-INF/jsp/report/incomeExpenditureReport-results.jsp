@@ -90,7 +90,7 @@
 							</tr>
 							<tr>
 								<th class="bluebgheadtd orange-background-white"><s:text name="report.accountCode" /></th>
-								<th class="bluebgheadtd"><s:text
+								<th class="bluebgheadtd orange-background-white"><s:text
 										name="report.headOfAccount" /></th>
 								<th class="bluebgheadtd orange-background-white"><s:text name="report.scheduleNo" /></th>
 								<%--<th class="bluebgheadtd orange-background-white"><s:text

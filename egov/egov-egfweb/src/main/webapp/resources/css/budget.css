@@ -56,8 +56,8 @@
 }
 
 .orange-background-white {
-	background-color: #f2851f;
-	color: #FFFFFF
+	background-color: #f2851f !important;
+	color: #FFFFFF !important;
 }
 
 div.topbar {
