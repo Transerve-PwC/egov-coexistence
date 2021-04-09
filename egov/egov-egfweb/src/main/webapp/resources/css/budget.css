@@ -55,6 +55,11 @@
     background-color: #f2851f;
 }
 
+.orange-background-white {
+	background-color: #f2851f;
+	color: #FFFFFF
+}
+
 div.topbar {
 	background-color: #293E5B;
 	height: 65px;

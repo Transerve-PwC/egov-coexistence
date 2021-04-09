@@ -89,41 +89,41 @@
 								</td>
 							</tr>
 							<tr>
-								<th class="bluebgheadtd"><s:text name="report.accountCode" /></th>
+								<th class="bluebgheadtd orange-background-white"><s:text name="report.accountCode" /></th>
 								<th class="bluebgheadtd"><s:text
 										name="report.headOfAccount" /></th>
-								<th class="bluebgheadtd"><s:text name="report.scheduleNo" /></th>
-								<%--<th class="bluebgheadtd"><s:text
+								<th class="bluebgheadtd orange-background-white"><s:text name="report.scheduleNo" /></th>
+								<%--<th class="bluebgheadtd orange-background-white"><s:text
 										name="report.revisedestimate" />
 									<s:property
 										value="incomeExpenditureStatement.financialYear.finYearRange" /></th> --%>
 								<s:iterator value="incomeExpenditureStatement.funds"
 									status="stat">
-									<th class="bluebgheadtd" width="30%" colspan="2"><s:property
+									<th class="bluebgheadtd orange-background-white" width="30%" colspan="2"><s:property
 											value="name" />(Rs)</th>
 								</s:iterator>
 							</tr>
 							<tr>
-								<th class="bluebgheadtd"><s:text name="" /></th>
-								<th class="bluebgheadtd"><s:text name="" /></th>
-								<th class="bluebgheadtd"><s:text name="" /></th>
-								<%--<th class="bluebgheadtd"><s:text name="" /></th> --%>
+								<th class="bluebgheadtd orange-background-white"><s:text name="" /></th>
+								<th class="bluebgheadtd orange-background-white"><s:text name="" /></th>
+								<th class="bluebgheadtd orange-background-white"><s:text name="" /></th>
+								<%--<th class="bluebgheadtd orange-background-white"><s:text name="" /></th> --%>
 								<s:if test="%{incomeExpenditureStatement.getFunds().size()==1}">
 									<s:iterator value="incomeExpenditureStatement.funds"
 										status="stat">
-										<th class="bluebgheadtd" width="15%" align="center"
+										<th class="bluebgheadtd orange-background-white" width="15%" align="center"
 											colspan="1"><s:property value="currentYearToDate" />(Rs)</th>
-										<th class="bluebgheadtd" width="15%" align="center"
+										<th class="bluebgheadtd orange-background-white" width="15%" align="center"
 											colspan="1"><s:property value="previousYearToDate" />(Rs)</th>
 									</s:iterator>
 								</s:if>
 								<s:else>
 									<s:iterator value="incomeExpenditureStatement.funds"
 										status="stat">
-										<th class="bluebgheadtd" width="15%" align="center"
+										<th class="bluebgheadtd orange-background-white" width="15%" align="center"
 											colspan="1"><s:text name="report.currentTotals" />
 											<s:property value="currentYearToDate" /></th>
-										<th class="bluebgheadtd" width="15%" align="center"
+										<th class="bluebgheadtd orange-background-white" width="15%" align="center"
 											colspan="1"><s:text name="report.previousTotals" />
 											<s:property value="previousYearToDate" /></th>
 									</s:iterator>
