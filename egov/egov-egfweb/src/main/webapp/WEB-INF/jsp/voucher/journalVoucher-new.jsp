@@ -142,14 +142,14 @@
 		makeVoucherDetailTable();
 		document.getElementById('billDetailTable').getElementsByTagName('table')[0].width="80%"
 	 </script>
-				<!-- <br />
+				<br />
 				<div id="labelSL" align="center">
 					<table width="80%" border=0 id="labelid">
 						<th><s:text name="lbl.subledger.details"/> </th>
 					</table>
 				</div>
 
-				<div class="yui-skin-sam" align="center">
+				<div id="subLedgerTableParent" class="yui-skin-sam" align="center">
 					<div id="subLedgerTable"></div>
 				</div>
 				<script>
@@ -157,8 +157,11 @@
 			makeSubLedgerTable();
 			
 			document.getElementById('subLedgerTable').getElementsByTagName('table')[0].width="80%"
+			document.getElementById('labelSL').style.display = "none";
+			document.getElementById('subLedgerTable').style.display = "none";
+			document.getElementById("subLedgerTableParent").style.display = "none";
 		</script>
-				<br /> -->
+				<br />
 				<div class="subheadsmallnew" /></div>
 				<s:hidden id="voucherDate" name="voucherDate" />
 				<s:hidden id="cutOffDate" name="cutOffDate" />
